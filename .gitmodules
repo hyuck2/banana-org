@@ -1,0 +1,9 @@
+[submodule "banana-deploy"]
+	path = banana-deploy
+	url = ./banana-deploy
+[submodule "app1"]
+	path = app1
+	url = ./app1
+[submodule "app2"]
+	path = app2
+	url = ./app2
