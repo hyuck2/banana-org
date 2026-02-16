@@ -1,9 +1,11 @@
 [submodule "banana-deploy"]
-	path = banana-deploy
-	url = ./banana-deploy
+    path = banana-deploy
+    url = https://github.com/hyuck2/banana-deploy.git
+
 [submodule "app1"]
-	path = app1
-	url = ./app1
+    path = app1
+    url = https://github.com/hyuck2/app1.git
+
 [submodule "app2"]
-	path = app2
-	url = ./app2
+    path = app2
+    url = https://github.com/hyuck2/app2.git
