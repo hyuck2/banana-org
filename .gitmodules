@@ -9,3 +9,6 @@
 [submodule "app2"]
     path = app2
     url = https://github.com/hyuck2/app2.git
+[submodule "admin-dashboard"]
+	path = admin-dashboard
+	url = https://github.com/hyuck2/admin-dashboard.git
