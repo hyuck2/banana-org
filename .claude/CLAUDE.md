@@ -67,6 +67,11 @@ bash helm-deploy.sh {appname} {env}
 - 공통 차트: `banana-deploy/common-chart/`
 - 앱별 설정: `banana-deploy/{appname}/common.yaml` + `image/{env}.yaml`
 
+### WebSocket 프록시 (nginx)
+- `/api/ws/ssh` → backend `/servers/ws/ssh` (SSH 터미널)
+- `/api/ws/ansible` → backend `/ansible/ws/ansible` (Ansible 로그)
+- `/api/ws/` → backend `/k8s/ws/` (K8s exec)
+
 ### 현재 이미지 버전
 - admin-dashboard-backend: **v0.1.7**
 - admin-dashboard-frontend: **v0.2.5**
@@ -84,3 +89,34 @@ bash helm-deploy.sh {appname} {env}
 - Node 목록: 총 CPU cores / 메모리 표시, IP 컬럼, 컬럼 정렬, 검색
 - Deployments 탭: 클러스터 전체 Deployment 목록 (이름+네임스페이스 검색, 액션)
 - 네임스페이스 클릭 → Deployments 탭으로 이동 (해당 네임스페이스 검색 자동입력)
+
+## Phase 3 서버 관리 기능 (구현 완료)
+
+### 서버/그룹 관리
+- 서버 CRUD: hostname, IP, SSH 포트, 사용자, 비밀번호(Fernet 암호화)
+- 서버 그룹 CRUD: 그룹별 서버 분류
+- 대량 등록: 클립보드 붙여넣기 (TSV/CSV 자동감지) → 편집 가능 테이블 → 일괄 등록
+
+### SSH 기능
+- SSH 접속 테스트: 단건/대량 (paramiko)
+- 웹 SSH 터미널: WebSocket `/servers/ws/ssh` + xterm.js
+- 그룹 명령 실행: 그룹 내 전 서버 SSH 병렬 실행 → 서버별 결과 표시
+
+### 메트릭 소스 (Prometheus/VictoriaMetrics)
+- 메트릭 소스 CRUD + 연결 테스트
+- 타겟 목록 + 등록 서버 IP 매칭
+- 서버 메트릭 조회: CPU%, Mem%, Disk% (PromQL, Canvas 차트)
+
+### Ansible 관리
+- Playbook CRUD (YAML 편집)
+- Inventory CRUD + 그룹 기반 자동생성
+- Playbook 실행 (subprocess) + 실시간 로그 스트리밍 (WebSocket)
+- 실행 이력 조회
+
+### DB 테이블 (Phase 3)
+- server_groups, servers, metric_sources
+- ansible_playbooks, ansible_inventories, ansible_executions
+
+### 개발 환경
+- `docker-compose.dev.yml`: SSH 서버 3대 + node-exporter 2대 + Prometheus
+- 테스트: testuser/testpass, 포트 2221-2223
