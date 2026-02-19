@@ -72,9 +72,12 @@ bash helm-deploy.sh {appname} {env}
 - `/api/ws/ansible` → backend `/ansible/ws/ansible` (Ansible 로그)
 - `/api/ws/` → backend `/k8s/ws/` (K8s exec)
 
+### UI 규칙
+- **액션/드롭다운 메뉴**: 반드시 `Dropdown` 컴포넌트(`src/components/ui/Dropdown.tsx`)를 사용한다. 테이블 안에서 `absolute` 포지셔닝 사용 금지 — `Dropdown`은 `fixed` 포지셔닝 + `z-50`으로 테이블 바깥에 렌더링되어 overflow 잘림 문제가 없다.
+
 ### 현재 이미지 버전
-- admin-dashboard-backend: **v0.1.7**
-- admin-dashboard-frontend: **v0.2.5**
+- admin-dashboard-backend: **v0.2.1**
+- admin-dashboard-frontend: **v0.3.2**
 
 ## Phase 2 K8s 관리 기능 (구현 완료)
 
